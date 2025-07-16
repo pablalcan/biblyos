@@ -1,0 +1,1017 @@
+/* ROOT - cores clássicas, dourado e marrom */
+:root {
+    --brown-dark: #4b2e0b;
+    --brown-light: #c4a35a;
+    --paper-bg: #f9f6f1;
+    --gold: #d4af37;
+    --shadow-dark: rgba(37, 25, 7, 0.6);
+    --shadow-light: rgba(213, 175, 55, 0.45);
+    --font-primary: 'Cinzel', serif;
+    --font-secondary: 'Libre Baskerville', serif;
+    --transition-speed: 0.4s ease-in-out;
+}
+
+/* Reset básico */
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-secondary);
+    background:
+        linear-gradient(120deg, #a17d06 0%, #ffffff 30%, #9e7e47 60%, #ffffff 100%),
+        url('/biblioteca_digital_BIBLYOS/css/imagens/maze-white.png'); /* Fundo com padrão de labirinto */
+    background-blend-mode: lighten; 
+    background-repeat: repeat;
+    background-size: 300% 300%, auto;
+    color: var(--brown-dark);
+    min-height: 100vh;
+    padding: 50px 15px;
+    overflow-x: hidden;
+    perspective: 1200px;
+}
+
+@keyframes gradientBG {
+    0% {background-position: 0% 50%, 0 0;}
+    25% {background-position: 50% 60%, 0 0;}
+    50% {background-position: 100% 50%, 0 0;}
+    75% {background-position: 50% 40%, 0 0;}
+    100% {background-position: 0% 50%, 0 0;}
+}
+
+/* Container principal - bloco centralizado com aparência de página de livro */
+.container {
+    max-width: 1024px;
+    margin: auto;
+    background:
+        linear-gradient(135deg, #e2c6b4 60%, #f1e0b8 100%); /* Gradiente análogo ao fundo do site */
+    background-blend-mode: lighten, multiply;
+    background-repeat: repeat, repeat, repeat;
+    background-size: cover, auto, auto;
+    border-radius: 20px;
+    border: 3px double var(--gold);
+    padding: 50px 60px 60px;
+    box-shadow:
+        0 8px 32px 0 rgba(75, 46, 11, 0.18),
+        0 1.5px 8px 0 rgba(212, 175, 55, 0.12),
+        inset 0 0 60px #e2c799;
+    transform-style: preserve-3d;
+    animation: fadeSlideUp 1.2s ease forwards;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Animação suave de entrada */
+@keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(60px) rotateX(12deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+/* Títulos com efeito dourado */
+h1, h2 {
+    font-family: var(--font-primary);
+    text-align: center;
+    color: var(--brown-dark);
+    letter-spacing: 0.15em;
+    text-shadow:
+        0 0 6px var(--gold),
+        0 1px 2px #b78c1d;
+    margin-bottom: 50px;
+    user-select: none;
+}
+
+h1 {
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    filter: drop-shadow(1px 2px 2px rgba(180, 140, 20, 0.5));
+}
+
+h2 {
+    font-size: 2.8rem;
+    margin-bottom: 35px;
+    text-transform: uppercase;
+}
+
+/* Navegação medalhão clássico */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 70px;
+    user-select: none;
+    perspective: 900px;
+}
+
+nav a {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--brown-dark);
+    padding: 15px 30px;
+    border-radius: 40px;
+    border: 3px solid var(--brown-light);
+    background: linear-gradient(145deg, #fff6d1, #e9da9c);
+    box-shadow:
+        inset 0 0 12px var(--shadow-light),
+        0 12px 25px var(--shadow-dark);
+    text-decoration: none;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed), color var(--transition-speed);
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, transparent 40%, var(--gold) 90%);
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    z-index: 0;
+    transform: rotate(25deg);
+    pointer-events: none;
+}
+
+nav a:hover::before {
+    opacity: 0.3;
+}
+
+nav a:hover,
+nav a:focus {
+    color: #f7e87c;
+    box-shadow:
+        0 15px 30px var(--shadow-dark),
+        inset 0 0 20px var(--gold);
+    transform: translateZ(40px) rotateX(6deg);
+    outline: none;
+    z-index: 1;
+}
+
+/* Grade dos livros - estilo “caixa antiga” */
+.livros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+    gap: 45px;
+    perspective: 1400px;
+}
+
+.livro-item {
+    background: linear-gradient(145deg, #f9f5ea, #d6caa3);
+    border-radius: 24px;
+    box-shadow:
+        8px 10px 30px rgba(40, 30, 10, 0.4),
+        inset 0 0 20px #f7edc3,
+        inset 0 -3px 20px #a68844;
+    padding: 20px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.45s cubic-bezier(0.25,1,0.5,1), box-shadow 0.35s ease;
+    position: relative;
+}
+
+.livro-item:hover {
+    transform: translateZ(60px) rotateX(8deg) rotateY(-6deg);
+    box-shadow:
+        14px 20px 50px rgba(40, 30, 10, 0.8),
+        inset 0 0 40px #ffe894;
+    z-index: 10;
+}
+
+.livro-item::before {
+    content: '';
+    position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border-radius: 24px;
+    pointer-events: none;
+    box-shadow:
+        0 0 40px 5px rgba(255, 212, 70, 0.3),
+        inset 0 0 20px rgba(255, 255, 200, 0.7);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+}
+
+.livro-item:hover::before {
+    opacity: 1;
+}
+
+.livro-item img {
+    border-radius: 16px;
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    box-shadow:
+        0 10px 15px rgba(68, 47, 10, 0.7),
+        inset 0 0 15px #f6e27a;
+    margin-bottom: 18px;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease;
+}
+
+.livro-item:hover img {
+    transform: translateZ(50px);
+}
+
+.livro-item h3 {
+    font-family: var(--font-primary);
+    font-size: 1.8rem;
+    color: var(--brown-dark);
+    margin-bottom: 10px;
+    text-shadow:
+        0 1px 3px rgba(213, 175, 55, 0.7);
+}
+
+.livro-item p {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #5a421e;
+    user-select: none;
+    text-shadow: 0 1px 1px rgba(255 255 255 / 0.4);
+}
+
+/* Botões com brilho dourado e relevo */
+.btn {
+    display: inline-block;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    padding: 16px 36px;
+    border-radius: 50px;
+    border: 3px solid var(--gold);
+    background: linear-gradient(145deg, #fff8d5, #d6ba55);
+    color: var(--brown-dark);
+    text-transform: uppercase;
+    box-shadow:
+        0 0 15px var(--gold),
+        inset 0 0 8px #fff;
+    cursor: pointer;
+    user-select: none;
+    transition: box-shadow 0.4s ease, transform 0.25s ease;
+    perspective: 900px;
+}
+
+.btn:hover,
+.btn:focus {
+    box-shadow:
+        0 0 25px 5px var(--gold),
+        inset 0 0 20px #fff5a1;
+    transform: translateZ(10px);
+    outline: none;
+}
+
+/* Formulário com estilo pergaminho antigo */
+form {
+    max-width: 640px;
+    margin: 60px auto;
+    padding: 40px 45px;
+    background: linear-gradient(160deg, #fdf6e3, #e7ddb3);
+    border-radius: 28px;
+    box-shadow:
+        0 15px 30px var(--shadow-dark),
+        inset 0 0 30px var(--shadow-light);
+    font-family: var(--font-secondary);
+    color: var(--brown-dark);
+    user-select: none;
+    transform-style: preserve-3d;
+}
+
+form h2 {
+    font-family: var(--font-primary);
+    font-size: 2.8rem;
+    margin-bottom: 35px;
+    color: var(--brown-dark);
+    text-align: center;
+    text-shadow: 0 0 8px var(--gold);
+    letter-spacing: 0.12em;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 18px 22px;
+    margin-bottom: 28px;
+    border-radius: 14px;
+    border: 2.8px solid var(--brown-light);
+    background: #f7f1d0;
+    font-size: 1.2rem;
+    font-family: var(--font-secondary);
+    color: var(--brown-dark);
+    box-shadow: inset 0 3px 8px #fef6d9;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease;
+    resize: vertical;
+}
+
+form input:focus,
+form textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow:
+        0 0 20px var(--gold),
+        inset 0 0 15px #fff9a4;
+}
+
+form button {
+    width: 100%;
+    background: var(--gold);
+    border: none;
+    border-radius: 50px;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    padding: 18px 0;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--brown-dark);
+    box-shadow:
+        0 0 15px var(--gold),
+        inset 0 0 20px #fff9a4;
+    user-select: none;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+form button:hover,
+form button:focus {
+    background: #f1d351;
+    box-shadow:
+        0 0 25px var(--gold),
+        inset 0 0 25px #fffecd;
+    outline: none;
+}
+
+/* Rodapé clássico dourado */
+footer {
+    text-align: center;
+    margin-top: 80px;
+    padding: 40px 20px;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    color: var(--gold);
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.7);
+    letter-spacing: 0.14em;
+    user-select: none;
+    text-transform: uppercase;
+    background: linear-gradient(145deg, #3d2f09, #6b5315);
+    border-radius: 0 0 24px 24px;
+    box-shadow:
+        0 -12px 30px rgba(66, 50, 9, 0.8);
+}
+
+/* RESPONSIVIDADE ULTRA CLEAN */
+@media (max-width: 900px) {
+    .container {
+        padding: 35px 25px;
+    }
+    .livros-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    nav {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    form {
+        margin: 40px 15px;
+        padding: 30px 25px;
+    }
+}
+.usuario-nome {
+    background-color: #d4af37cc; /* dourado translúcido */
+    color: #3d2f09; /* marrom escuro */
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    max-width: max-content;
+    margin: 0 auto 20px; /* centraliza horizontalmente e espaço embaixo */
+    box-shadow:
+        0 0 8px rgba(212, 175, 55, 0.7),
+        inset 0 0 10px rgba(255, 255, 255, 0.3);
+    user-select: none;
+    text-align: center;
+}
+
+/* Estilos para a tabela de gerenciamento de livros (gerenciar_livros.php) */
+.gerenciar-livros-tabela {
+    width: 95%;
+    max-width: 1000px;
+    margin: 40px auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: linear-gradient(145deg, #f9f5ea, #d6caa3);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow:
+        0 10px 25px var(--shadow-dark),
+        inset 0 0 15px var(--shadow-light);
+    font-family: var(--font-secondary);
+    color: var(--brown-dark);
+}
+
+.gerenciar-livros-tabela th,
+.gerenciar-livros-tabela td {
+    padding: 18px 25px;
+    text-align: left;
+    border-bottom: 1px solid #d4c5a1;
+}
+
+.gerenciar-livros-tabela th {
+    background: linear-gradient(145deg, #e7d896, #cfa835);
+    color: var(--brown-dark);
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+/* Arredondamento para os cantos do cabeçalho */
+.gerenciar-livros-tabela th:first-child {
+    border-top-left-radius: 20px;
+}
+.gerenciar-livros-tabela th:last-child {
+    border-top-right-radius: 20px;
+}
+
+/* Zebra striping (linhas alternadas) */
+.gerenciar-livros-tabela tbody tr:nth-child(even) {
+    background-color: #f7f1e7;
+}
+
+.gerenciar-livros-tabela tbody tr:hover {
+    background-color: #fcefd7;
+    box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+/* Estilo para a célula da capa */
+.gerenciar-livros-tabela .capa-celula {
+    width: 80px;
+    text-align: center;
+}
+
+.gerenciar-livros-tabela .capa-celula img {
+    width: 50px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 0 5px var(--gold);
+    transition: transform 0.3s ease;
+}
+
+.gerenciar-livros-tabela .capa-celula img:hover {
+    transform: scale(1.1);
+}
+
+/* Estilo para a célula de ações */
+.gerenciar-livros-tabela .acoes-celula {
+    white-space: nowrap;
+    width: 1%;
+}
+
+/* Estilos para os botões de ação na tabela */
+.btn-acao {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px 0;
+    border-radius: 20px;
+    text-decoration: none;
+    font-family: var(--font-secondary);
+    font-size: 0.95em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.editar-btn {
+    background: linear-gradient(145deg, #a7d97b, #70b34f);
+    color: white;
+    border: 1px solid #5a943a;
+}
+
+.editar-btn:hover {
+    background: linear-gradient(145deg, #70b34f, #5a943a);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.excluir-btn {
+    background: linear-gradient(145deg, #ff8c8c, #d64a4a);
+    color: white;
+    border: 1px solid #c0392b;
+    margin-left: 10px;
+}
+
+.excluir-btn:hover {
+    background: linear-gradient(145deg, #d64a4a, #c0392b);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Estilos para as mensagens de feedback */
+.mensagem {
+    padding: 15px 25px;
+    margin: 20px auto;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 600px;
+    font-family: var(--font-secondary);
+    font-size: 1.1em;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.mensagem p {
+    margin: 0;
+    padding: 0;
+}
+
+.mensagem.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #badbcc;
+}
+
+.mensagem.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Estilos para os botões "Adicionar Novo Livro" e "Voltar para a Lista" */
+.btn-primary {
+    background: var(--gold);
+    color: var(--brown-dark);
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: var(--font-primary);
+    box-shadow: 0 0 10px var(--gold);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 20px var(--gold), inset 0 0 10px #fff;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: var(--font-primary);
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    margin-left: 15px;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    transform: translateY(-2px);
+}
+
+/* Garante que o texto de "Nenhum livro cadastrado" se alinhe */
+.gerenciar-livros-tabela + p {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.2em;
+    color: var(--brown-dark);
+    font-family: var(--font-secondary);
+}
+
+/* --- Estilos para a página de Detalhes do Livro (livro.php) --- */
+
+.livro-detalhes {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 50px auto;
+    background: linear-gradient(155deg, #fefcf5, #e0d5c4);
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow:
+        0 18px 40px var(--shadow-dark),
+        inset 0 0 25px var(--shadow-light);
+    font-family: var(--font-secondary);
+    color: var(--brown-dark);
+    line-height: 1.7;
+    animation: fadeSlideUp 1.2s ease forwards;
+    align-items: flex-start; /* Garante que o carrossel e o livro-info fiquem lado a lado */
+}
+
+@media (max-width: 768px) {
+    .livro-detalhes {
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 20px;
+        margin: 30px auto;
+    }
+}
+
+/* REMOVEMOS: .livro-capa, pois o carrossel assumiu essa função */
+
+.livro-info {
+    flex: 1;
+    padding-left: 20px;
+    transform: translateZ(10px);
+}
+
+@media (max-width: 768px) {
+    .livro-info {
+        padding-left: 0;
+        text-align: center;
+    }
+}
+
+.livro-info h2 {
+    font-size: 3rem;
+    margin-bottom: 25px;
+    text-align: left;
+    text-shadow: 0 0 8px var(--gold);
+    letter-spacing: 0.1em;
+}
+@media (max-width: 768px) {
+    .livro-info h2 {
+        text-align: center;
+    }
+}
+
+.livro-info p {
+    font-size: 1.15rem;
+    margin-bottom: 15px;
+    color: #5a421e;
+    text-shadow: 0 1px 1px rgba(255 255 255 / 0.4);
+}
+
+.livro-info p strong {
+    color: var(--brown-dark);
+    font-family: var(--font-primary);
+    font-weight: 700;
+}
+
+/* Sinopse dentro do carrossel agora */
+.sinopse-texto {
+    /* Esses estilos serão sobrepostos ou controlados pelo .carrossel-slide[data-slide-id="sinopse"] .sinopse-texto */
+    background: none; /* Remove fundo e borda da sinopse que estava no HTML */
+    border: none;
+    padding: 0;
+    margin: 0;
+    text-align: left; /* Alinha o texto da sinopse à esquerda */
+    box-shadow: none;
+    font-style: normal; /* Remove itálico se não quiser no slide */
+    font-size: 1em; /* Ajusta o tamanho da fonte da sinopse no slide */
+    color: #5a421e;
+}
+
+
+/* --- Estilos ATUALIZADOS para o Carrossel de Capa/Sinopse (livro.php) --- */
+.livro-carrossel {
+    flex: 0 0 300px; /* Largura fixa para o carrossel */
+    height: 450px; /* Altura fixa para o carrossel */
+    position: relative;
+    overflow: hidden;
+    margin-right: 40px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #fefcf5, #e0d5c4);
+    box-shadow:
+        0 10px 25px var(--shadow-dark),
+        inset 0 0 20px var(--shadow-light);
+    perspective: 1000px; /* Para o efeito 3D de virar */
+}
+
+@media (max-width: 768px) {
+    .livro-carrossel {
+        flex: none;
+        width: 100%;
+        max-width: 300px;
+        margin-right: 0;
+        margin-bottom: 30px;
+        height: 450px;
+    }
+}
+
+.carrossel-inner {
+    width: 100%;
+    height: 100%; /* Ocupa 100% da altura do carrossel */
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease-in-out; /* Transição mais suave e visível */
+}
+
+.carrossel-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    /* Transição de opacidade removida aqui, será controlada pelo JS com `display` */
+}
+
+/* Estado inicial da capa e sinopse para o efeito de virar */
+.carrossel-slide[data-slide-id="capa"] {
+    transform: rotateY(0deg);
+}
+
+.carrossel-slide[data-slide-id="sinopse"] {
+    transform: rotateY(180deg);
+    display: none; /* Inicia escondido */
+}
+
+/* Estilo para a Capa (Slide 1) - Usando o data-slide-id */
+.carrossel-slide[data-slide-id="capa"] img {
+  width: 100%;
+  height: 100%; /* Garante que a imagem preencha a altura total do slide */
+  object-fit: cover; /* Faz a imagem cobrir todo o espaço, cortando as partes que não couberem */
+  border-radius: 15px;
+  box-shadow:
+      0 8px 15px rgba(40, 30, 10, 0.6),
+      inset 0 0 15px #f6e27a;
+}
+
+/* Estilo para a Sinopse (Slide 2) - Usando o data-slide-id */
+.carrossel-slide[data-slide-id="sinopse"] {
+  background: linear-gradient(160deg, #fdf6e3, #e7ddb3);
+  /* Removido `display: flex;` e `align-items: center;` implícitos */
+  flex-direction: column; /* Continua sendo uma coluna para o título e texto */
+  justify-content: flex-start; /* Alinha o conteúdo ao topo */
+  align-items: flex-start; /* Alinha os itens à esquerda */
+  text-align: left; /* Alinha o texto dentro do slide à esquerda */
+  overflow-y: auto; /* Adiciona scroll vertical se o conteúdo for maior que a altura do slide */
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #6a532e;
+  padding: 20px; /* Garante um padding interno para o conteúdo não colar nas bordas */
+  box-sizing: border-box; /* Inclui o padding no cálculo da largura/altura total */
+}
+
+/* Garante que o título da sinopse fique bem no topo */
+.carrossel-slide[data-slide-id="sinopse"] .slide-title {
+  font-family: var(--font-primary);
+  font-size: 1.8rem;
+  color: var(--brown-dark);
+  margin-bottom: 15px; /* Espaço após o título */
+  text-shadow: 0 0 8px var(--gold);
+  letter-spacing: 0.05em;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--brown-light);
+  width: 100%;
+  text-align: center; /* Centraliza o título da sinopse */
+}
+
+.carrossel-slide[data-slide-id="sinopse"] .sinopse-texto {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  box-shadow: none;
+  font-style: normal;
+  font-size: 1em;
+  color: #5a421e;
+  flex-grow: 1; /* Permite que o texto da sinopse ocupe o espaço restante */
+}
+
+.carrossel-slide[data-slide-id="sinopse"] .mensagem.info {
+    font-size: 0.9em;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* NOVO BOTÃO DE VIRAR PÁGINA */
+.btn-virar-pagina {
+    position: absolute;
+    top: 50%; /* Centraliza verticalmente */
+    right: 15px; /* Posição à direita, ajuste se quiser mais para dentro */
+    transform: translateY(-50%) translateZ(50px); /* Centraliza e adiciona relevo */
+    background: linear-gradient(145deg, var(--gold), #e6b840);
+    color: var(--brown-dark);
+    border: 3px solid var(--brown-dark);
+    border-radius: 50%; /* Botão redondo */
+    width: 60px; /* Tamanho do botão */
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.4),
+        inset 0 0 15px rgba(255,255,255,0.7);
+    font-family: var(--font-primary);
+    font-size: 2.5rem; /* Tamanho do ">" */
+    font-weight: 900; /* Super negrito */
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: all 0.3s ease-in-out;
+    z-index: 100; /* Garante que esteja acima de tudo */
+}
+
+.btn-virar-pagina:hover {
+    background: linear-gradient(145deg, #e6b840, var(--gold));
+    box-shadow:
+        0 12px 25px rgba(0,0,0,0.5),
+        inset 0 0 20px rgba(255,255,255,0.9);
+    transform: translateY(-50%) translateZ(60px) scale(1.05); /* Mais relevo e ligeiro aumento */
+}
+
+/* Botão "virar" para a esquerda quando estiver mostrando a sinopse */
+.btn-virar-pagina.flipped {
+    right: auto; /* Remove a posição da direita */
+    left: 15px; /* Move para a esquerda */
+    transform: translateY(-50%) translateZ(50px) scaleX(-1); /* Inverte o ">" para virar para a esquerda */
+}
+
+.btn-virar-pagina.flipped:hover {
+    transform: translateY(-50%) translateZ(60px) scale(1.05) scaleX(-1);
+}
+
+
+/* Ajustes nos botões de Ações (Ler, Download, Editar, Excluir) */
+/* Removendo os estilos em linha e garantindo que as cores e tamanhos sejam controlados aqui */
+.livro-acoes {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px dashed #d4c5a1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+    .livro-acoes {
+        justify-content: center;
+    }
+}
+
+.livro-acoes p { /* Texto "Ações para usuários logados:" */
+    font-size: 1.25em; /* Ajuste aqui para ser maior que os botões */
+    color: var(--brown-dark);
+    font-weight: 700;
+    margin-bottom: 10px;
+    flex-basis: 100%;
+    text-align: left;
+    font-family: var(--font-primary);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+    .livro-acoes p {
+        text-align: center;
+    }
+}
+
+.livro-acoes .btn-primary,
+.livro-acoes .btn-secondary,
+.livro-acoes .btn-info,
+.livro-acoes .btn-danger {
+    display: inline-block;
+    padding: 8px 18px; /* Padding ajustado */
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    font-size: 0.9rem; /* Tamanho da fonte dos botões ajustado */
+    text-transform: capitalize;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    min-width: 100px;
+}
+
+/* Cores específicas dos botões de ação (manter as que já tínhamos) */
+.livro-acoes .btn-primary { /* Ler Online */
+    background: var(--gold);
+    color: var(--brown-dark);
+    border: 2px solid var(--brown-light);
+}
+.livro-acoes .btn-secondary { /* Download */
+    background: #8d7042;
+    color: #fff;
+    border: 2px solid #6b5315;
+}
+.livro-acoes .btn-info { /* Editar */
+    background: linear-gradient(145deg, #a7d97b, #70b34f);
+    color: white;
+    border: 1px solid #5a943a;
+}
+.livro-acoes .btn-danger { /* Excluir */
+    background: linear-gradient(145deg, #ff8c8c, #d64a4a);
+    color: white;
+    border: 1px solid #c0392b;
+}
+
+/* Mensagem de "Livro não encontrado" */
+.livro-detalhes + p {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.2em;
+    color: var(--brown-dark);
+    font-family: var(--font-secondary);
+}
+
+/* Estilos para a mensagem de "Você precisa estar logado" */
+.mensagem.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Adicionando responsividade para a sinopse e infos */
+@media (max-width: 500px) {
+    .livro-info p {
+        font-size: 1em;
+    }
+    .sinopse-texto {
+        padding: 15px;
+        font-size: 0.95rem;
+    }
+    .livro-acoes .btn-primary,
+    .livro-acoes .btn-secondary,
+    .livro-acoes .btn-info,
+    .livro-acoes .btn-danger {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+}
+
+/* --- NOVO ESTILO PARA A SLOGAN --- */
+.slogan {
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--brown-dark);
+    text-align: center;
+    margin: 40px 0;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* EFEITO DE SOMBRA ANIMADA PARA A SLOGAN */
+.slogan::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(145deg, #fff9c4, #f6e27a);
+    z-index: -1;
+    filter: blur(10px);
+    animation: pulse 6s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+}
+    .slogan {
+        display: block;
+        margin: 0 auto 40px auto;
+        padding: 18px 32px;
+        font-family: var(--font-primary);
+        font-size: 1.5rem;
+        color: var(--brown-dark);
+        background: linear-gradient(90deg, #fffbe6 60%, #f3e9d2 100%);
+        border: 2.5px solid var(--gold);
+        border-radius: 30px;
+        box-shadow: 0 4px 18px rgba(212,175,55,0.10), 0 1px 8px #e2c799;
+        text-align: center;
+        letter-spacing: 0.07em;
+        text-shadow: 0 1px 8px #f7e87c, 0 1px 2px #b78c1d;
+        font-weight: 700;
+        transition: box-shadow 0.3s;
+    }
+
+    .slogan:hover {
+        box-shadow: 0 8px 32px #d4af37cc, 0 2px 12px #e2c799;
+        background: linear-gradient(90deg, #fffbe6 80%, #ffe9a1 100%);
+    }
+
+
